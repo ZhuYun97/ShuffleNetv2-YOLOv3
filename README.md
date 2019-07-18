@@ -1,4 +1,4 @@
-# ShufflNetv2-YOLOv3
+# ShuffleNetv2-YOLOv3
 The work is base on [YOLOv3_PyTorch](https://github.com/BobLiu20/YOLOv3_PyTorch). I replace the backbone with ShuffleNet v2. And it is under testing now!
 ## Why this project
 The computing complexity of darknet53 is costly. I want to speed up network computing. So I replace the backbone with ShuffleNet v2 which is a lightweight network in order to use the detector in mobile devices like smartphone. 
