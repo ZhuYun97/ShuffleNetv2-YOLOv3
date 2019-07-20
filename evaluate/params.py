@@ -1,7 +1,7 @@
 TRAINING_PARAMS = \
 {
     "model_params": {
-        "backbone_name": "darknet_53",
+        "backbone_name": "shufflenet_2",
         "backbone_pretrained": "",
     },
     "yolo": {
@@ -17,5 +17,5 @@ TRAINING_PARAMS = \
     "img_h": 416,
     "img_w": 416,
     "parallels": [0],
-    "pretrain_snapshot": "../weights/official_yolov3_weights_pytorch.pth",
+    "pretrain_snapshot": "../training/YOUR_WORKING_DIR/shufflenet_2/size416x416_try2/20190719210856/model.pth",
 }

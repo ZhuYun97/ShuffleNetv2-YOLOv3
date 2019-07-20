@@ -1,4 +1,4 @@
-import torch
+import torch as t
 import torch.nn as nn
 import math
 from collections import OrderedDict
@@ -120,20 +120,31 @@ class ShuffleNet2(nn.Module):
     self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
     in_c = self.out_channels[1]
     
-    self.stages = []
+    self.stage2 = []
+    self.stage3 = []
+    self.stage4 = []
     for stage_idx in range(len(self.stage_repeat_num)):
       out_c = self.out_channels[2+stage_idx]
       repeat_num = self.stage_repeat_num[stage_idx]
+      stage = []
       for i in range(repeat_num):
         if i == 0:
-          self.stages.append(ShuffleBlock(in_c, out_c, downsample=True))
+          stage.append(ShuffleBlock(in_c, out_c, downsample=True))
         else:
-          self.stages.append(ShuffleBlock(in_c, in_c, downsample=False))
+          stage.append(ShuffleBlock(in_c, in_c, downsample=False))
         in_c = out_c
+      if stage_idx == 0:
+        self.stage2 = stage
+      elif stage_idx == 1:
+        self.stage3 = stage
+      elif stage_idx == 2:
+        self.stage4 = stage
+      else:
+        print("error")
     # self.stages = nn.Sequential(*self.stages)
-    self.stage2 = self.stages[0] # 58 * 58 * 116
-    self.stage3 = self.stages[1] # 26 * 26 * 232
-    self.stage4 = self.stages[2]
+    self.stage2 = nn.Sequential(*self.stage2) # 58 * 58 * 116
+    self.stage3 = nn.Sequential(*self.stage3) # 26 * 26 * 232
+    self.stage4 = nn.Sequential(*self.stage4)
     in_c = self.out_channels[-2]
     out_c = self.out_channels[-1]
     self.conv5 = conv_1x1_bn(in_c, out_c, 1) # 13 * 13 * 1024
@@ -161,7 +172,7 @@ def shufflenet2(pretrained, **kwargs):
     model = ShuffleNet2()
     if pretrained:
         if isinstance(pretrained, str):
-            model.load_state_dict(torch.load(pretrained))
+            model.load_state_dict(t.load(pretrained))
         else:
             raise Exception("darknet request a pretrained path. got [{}]".format(pretrained))
     return model
