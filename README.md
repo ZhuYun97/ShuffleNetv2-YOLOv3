@@ -1,5 +1,5 @@
 # ShuffleNetv2-YOLOv3
-The work is base on [YOLOv3_PyTorch](https://github.com/BobLiu20/YOLOv3_PyTorch). I replace the backbone with ShuffleNet v2. And it is under testing now!
+The work is base on [YOLOv3_PyTorch](https://github.com/BobLiu20/YOLOv3_PyTorch). I replace the backbone with ShuffleNet v2. But after testing, I can't train a good detector. Many people said the [work](https://github.com/BobLiu20/YOLOv3_PyTorch) has many problems. **So I don't recommend this repo, if you want to use shufflenetv2 + yolo3, you can go for [this](https://github.com/TencentYoutuResearch/ObjectDetection-OneStageDet).**
 ## Why this project
 The computing complexity of darknet53 is costly. I want to speed up network computing. So I replace the backbone with ShuffleNet v2 which is a lightweight network in order to use the detector in mobile devices like smartphone. 
 ## Installation
